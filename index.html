@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Extractor</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Number Extractor</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="inputText">Enter text containing numbers:</label>
+                    <textarea class="form-control" id="inputText" placeholder="Enter text containing numbers"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Choose separator:</label>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="extractNumbers('newline')">New Line</button>
+                        <button class="btn btn-secondary" onclick="extractNumbers('comma')">Comma</button>
+                        <button class="btn btn-secondary" onclick="extractNumbers('colon')">Colon</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="outputText">Extracted numbers:</label>
+                    <textarea class="form-control" id="outputText" placeholder="Extracted numbers will appear here" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include Font Awesome JS for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+
+
+    <script>
+        function extractNumbers(separator) {
+            const inputText = document.getElementById('inputText').value;
+            let extractedNumbers;
+
+            switch (separator) {
+                case 'newline':
+                    extractedNumbers = inputText.match(/\d+/g).join('\n');
+                    break;
+                case 'comma':
+                    extractedNumbers = inputText.match(/\d+/g).join(', ');
+                    break;
+                case 'colon':
+                    extractedNumbers = inputText.match(/\d+/g).join(': ');
+                    break;
+                default:
+                    extractedNumbers = "Invalid separator";
+            }
+
+            document.getElementById('outputText').value = extractedNumbers;
+        }
+        
+        function copyToClipboard() {
+            const outputText = document.getElementById('outputText');
+            outputText.select();
+            document.execCommand('copy');
+        }
+    </script>
+</body>
+</html>
